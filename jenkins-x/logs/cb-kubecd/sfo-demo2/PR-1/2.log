@@ -1,0 +1,91 @@
+Step: step-credential-initializer-dd6pv:
+
+{"level":"warn","ts":1565644133.9587464,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1565644133.9594755,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: step-working-dir-initializer-47bbb:
+
+{"level":"warn","ts":1565644135.0357857,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1565644135.0399258,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source /workspace/source/charts/preview\""}
+Step: step-place-tools:
+
+Step: step-git-source-cb-kubecd-sfo-demo2-pr-1-promot-xjwdp:
+
+{"level":"warn","ts":1565644141.149075,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1565644143.4304187,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/cb-kubecd/sfo-demo2.git @ 598e2171fbfa0337a5c13ff3a13e56de751cdde3 in path /workspace/source"}
+Step: step-git-merge:
+
+Using SHAs from PULL_REFS=master:6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d,1:598e2171fbfa0337a5c13ff3a13e56de751cdde3
+DEBUG: ran git fetch --unshallow origin 598e2171fbfa0337a5c13ff3a13e56de751cdde3: 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d: in 
+DEBUG: ran git checkout master in 
+DEBUG: ran git reset --hard 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d in 
+DEBUG: ran clean --force -d . in 
+DEBUG: ran git merge 598e2171fbfa0337a5c13ff3a13e56de751cdde3 in 
+MERGED SHA SUBJECT
+598e2171f  fix: updates
+Step: step-build-make-linux:
+
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO15VENDOREXPERIMENT=1 go build -ldflags '' -o bin/sfo-demo2 main.go
+Step: step-build-container-build:
+
+[36mINFO[0m[0000] No base image, nothing to extract            
+[36mINFO[0m[0000] cmd: EXPOSE                                  
+[36mINFO[0m[0000] Adding exposed port: 8080/tcp                
+[36mINFO[0m[0000] Using files from context: [/workspace/source/bin] 
+[36mINFO[0m[0000] Skipping unpacking as no commands require it. 
+[36mINFO[0m[0000] Taking snapshot of full filesystem...        
+[36mINFO[0m[0000] EXPOSE 8080                                  
+[36mINFO[0m[0000] cmd: EXPOSE                                  
+[36mINFO[0m[0000] Adding exposed port: 8080/tcp                
+[36mINFO[0m[0000] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0000] ENTRYPOINT ["/sfo-demo2"]                    
+[36mINFO[0m[0000] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0000] Using files from context: [/workspace/source/bin] 
+[36mINFO[0m[0000] COPY ./bin/ /                                
+[36mINFO[0m[0000] Taking snapshot of files...                  
+2019/08/12 21:09:17 pushed blob: sha256:e66a95f1045e1ed0f0ed92e78b96811dc024d1f42dd2b3956316099c91c327e1
+2019/08/12 21:09:17 pushed blob: sha256:f47459966eb1c12114fdab6fd4433d98580b035e7ce521711bae8baf4ca64d1d
+2019/08/12 21:09:19 gcr.io/jenkinsx-dev/sfo-demo2:0.0.0-SNAPSHOT-PR-1-2: digest: sha256:4b4aaf3a75ed8da9a0e81a7d35a1dfd5ac64a1054e58ca7cc6499e793ffa697b size: 428
+Step: step-postbuild-post-build:
+
+no CVE provider running in the current ** namespace so skip adding image to be analysed
+Step: step-promote-make-preview:
+
+sed -i -e "s/version:.*/version: 0.0.0-SNAPSHOT-PR-1-2/" Chart.yaml
+sed -i -e "s/version:.*/version: 0.0.0-SNAPSHOT-PR-1-2/" ../*/Chart.yaml
+sed -i -e "s|repository:.*|repository: gcr.io\/jenkinsx-dev\/sfo-demo2|" values.yaml
+sed -i -e "s/tag:.*/tag: 0.0.0-SNAPSHOT-PR-1-2/" values.yaml
+echo "  version: 0.0.0-SNAPSHOT-PR-1-2" >> requirements.yaml
+** step helm build
+WARNING: No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Adding missing Helm repo: storage.googleapis.com https://storage.googleapis.com/chartmuseum.jenkins-x.io
+Successfully added Helm repository storage.googleapis.com.
+Adding missing Helm repo: jenkins-x-chartmuseum http://jenkins-x-chartmuseum:8080
+Successfully added Helm repository jenkins-x-chartmuseum.
+WARNING: No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Adding missing Helm repo: chartmuseum.jenkins-x.io http://chartmuseum.jenkins-x.io
+Successfully added Helm repository chartmuseum.jenkins-x.io.
+Step: step-promote-**-preview:
+
+Creating a preview
+Commit author email is empty for: 598e2171fbfa0337a5c13ff3a13e56de751cdde3
+Looking for commits in: /workspace/source/
+Found commit author match for: rawlingsj with email address: rawlingsj80@gmail.com
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  config:
+    domain: 34.77.228.65.nip.io
+    exposer: Ingress
+    http: "true"
+preview:
+  image:
+    repository: gcr.io/jenkinsx-dev/sfo-demo2
+    tag: 0.0.0-SNAPSHOT-PR-1-2
+Deleting and cloning the Jenkins X versions repo
+Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions
+WARNING: failed to create system vault in namespace ** due to no "**-vault-jrawlings-int" vault found in namespace "**"
+
+
+Updating PipelineActivities cb-kubecd-sfo-demo2-pr-1-2 which has status Running
+Preview application is now available at: http://sfo-demo2.**-cb-kubecd-sfo-demo2-pr-1.34.77.228.65.nip.io
