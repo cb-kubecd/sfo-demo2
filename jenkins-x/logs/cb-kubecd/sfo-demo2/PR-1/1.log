@@ -1,0 +1,49 @@
+Step: step-credential-initializer-c6jd8:
+
+{"level":"warn","ts":1565641777.4473755,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1565641777.4484298,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: step-working-dir-initializer-dkg5x:
+
+{"level":"warn","ts":1565641777.8753088,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1565641777.8770056,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+Step: step-place-tools:
+
+Step: step-git-source-meta-cb-kubecd-sfo-demo2-pr-1-p-gpn8l:
+
+{"level":"warn","ts":1565641782.014424,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1565641783.1584764,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/cb-kubecd/sfo-demo2.git @ 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d in path /workspace/source"}
+Step: step-git-merge:
+
+{"level":"info","msg":"Using SHAs from PULL_REFS=master:6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d,1:598e2171fbfa0337a5c13ff3a13e56de751cdde3","time":"2019-08-12T20:29:43Z"}
+{"level":"debug","msg":"ran git fetch --unshallow origin 598e2171fbfa0337a5c13ff3a13e56de751cdde3: 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d: in ","time":"2019-08-12T20:29:44Z"}
+{"level":"debug","msg":"ran git checkout master in ","time":"2019-08-12T20:29:44Z"}
+{"level":"debug","msg":"ran git reset --hard 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d in ","time":"2019-08-12T20:29:44Z"}
+{"level":"debug","msg":"ran clean --force -d . in ","time":"2019-08-12T20:29:44Z"}
+{"level":"debug","msg":"ran git merge 598e2171fbfa0337a5c13ff3a13e56de751cdde3 in ","time":"2019-08-12T20:29:44Z"}
+MERGED SHA SUBJECT
+598e2171f  fix: updates
+Step: step-merge-pull-refs:
+
+{"level":"debug","msg":"ran git fetch origin 598e2171fbfa0337a5c13ff3a13e56de751cdde3: 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d: in ","time":"2019-08-12T20:29:46Z"}
+{"level":"debug","msg":"Unshallowed git repo in ","time":"2019-08-12T20:29:46Z"}
+{"level":"debug","msg":"ran git checkout master in ","time":"2019-08-12T20:29:46Z"}
+{"level":"debug","msg":"ran git reset --hard 6deea0d4ffbbb969e32e4fd0f7ed8941970dac2d in ","time":"2019-08-12T20:29:46Z"}
+{"level":"debug","msg":"ran clean --force -d . in ","time":"2019-08-12T20:29:46Z"}
+{"level":"debug","msg":"ran git merge 598e2171fbfa0337a5c13ff3a13e56de751cdde3 in ","time":"2019-08-12T20:29:46Z"}
+MERGED SHA SUBJECT
+598e2171f  fix: updates
+Step: step-create-effective-pipeline:
+
+{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-12T20:29:46Z"}
+{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-12T20:29:46Z"}
+{"level":"info","msg":"Effective pipeline written to jenkins-x-promotion-build-effective.yml","time":"2019-08-12T20:29:50Z"}
+Step: step-create-tekton-crds:
+
+{"level":"info","msg":"PipelineActivity for cb-kubecd-sfo-demo2-PR-1-1","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"Applying changes ","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"Checking if batch build reconciling is needed","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"upserted PipelineResource cb-kubecd-sfo-demo2-pr-1-promot for the git repository https://github.com/cb-kubecd/sfo-demo2.git and branch PR-1","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"upserted Task cb-kubecd-sfo-demo2-pr-1-promot-from-build-pack-1","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"upserted Pipeline cb-kubecd-sfo-demo2-pr-1-promot-1","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"created PipelineRun cb-kubecd-sfo-demo2-pr-1-promot-1","time":"2019-08-12T20:29:51Z"}
+{"level":"info","msg":"created PipelineStructure cb-kubecd-sfo-demo2-pr-1-promot-1","time":"2019-08-12T20:29:51Z"}
